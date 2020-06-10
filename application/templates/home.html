@@ -1,12 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block body_content %}
-   
+ 
+<h1> CHANGES HAVE BEEN MADE </h1>
+
 <br><br>
 
 
     {% for post in posts %}
-    	{{ post.tiltle }}<br>
+    	{{ post.title }}<br>
 	{{ post.first_name }} {{ post.last_name }}<br>
 	{{ post.content }}<br><br>
 {% endfor %} 

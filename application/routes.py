@@ -1,8 +1,7 @@
-
-from flask import render_template
-from application import app
+from flask import render_template, url_for, redirect
+from application import app, db
 from application.models import Posts
-from application.forms import PostsForms
+from application.forms import PostForm
 
 
 
@@ -40,12 +39,10 @@ def post():
             content = form.content.data
         )
 
-        db.session.add(postData)
+        db.session.add(new_post)
         db.session.commit()
 
         return redirect(url_for('home'))
 
-    else:
-        print(form.errors)
 
-    return render_template('post.html', title='Post', form=for
+    return render_template('post.html', title='Post', form=form)
