@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body_content %}
+   
+<br><br>
+
+
+    {% for post in posts %}
+    	{{ post.tiltle }}<br>
+	{{ post.first_name }} {{ post.last_name }}<br>
+	{{ post.content }}<br><br>
+{% endfor %} 
+
+
+{% endblock %}
