@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect
-from application import app, db
-from application.models import Posts
-from application.forms import PostForm
+from application import app, db, bcrypt
+from application.models import Posts, Users
+from application.forms import PostForm, RegistrationForm
 
 
 
@@ -24,9 +24,19 @@ def login():
     return render_template('login.html' , title="Login" , desc= "This is the login page")
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template('register.html' , title="Register" , desc= "This is the registration page")
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hash_pw = bcrypt.generate_password_hash(form.password.data)
+
+        new_user = Users(email=form.email.data, password=hash_pw)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('post'))
+    return render_template('register.html', title='Register', form=form)
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
